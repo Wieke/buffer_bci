@@ -66,10 +66,10 @@
         <Param name="letterHeight" val="0.1" valType="code" updates="constant"/>
       </TextComponent>
     </Routine>
-    <Routine name="trial">
-      <StaticComponent name="ISI">
+    <Routine name="stimulus">
+      <StaticComponent name="ISI_2">
         <Param name="code" val="" valType="code" updates="None"/>
-        <Param name="name" val="ISI" valType="code" updates="None"/>
+        <Param name="name" val="ISI_2" valType="code" updates="None"/>
         <Param name="stopVal" val="0.5" valType="code" updates="constant"/>
         <Param name="durationEstim" val="" valType="code" updates="None"/>
         <Param name="startEstim" val="" valType="code" updates="None"/>
@@ -77,19 +77,19 @@
         <Param name="stopType" val="duration (s)" valType="str" updates="None"/>
         <Param name="startVal" val="0.0" valType="code" updates="None"/>
       </StaticComponent>
-      <TextComponent name="imagination_instruction">
+      <TextComponent name="imagination_instruction_2">
         <Param name="opacity" val="1" valType="code" updates="constant"/>
         <Param name="colorSpace" val="rgb" valType="str" updates="constant"/>
-        <Param name="name" val="imagination_instruction" valType="code" updates="None"/>
-        <Param name="wrapWidth" val="" valType="code" updates="constant"/>
+        <Param name="name" val="imagination_instruction_2" valType="code" updates="None"/>
         <Param name="color" val="white" valType="str" updates="constant"/>
-        <Param name="text" val="$instruction" valType="str" updates="set every repeat"/>
+        <Param name="wrapWidth" val="" valType="code" updates="constant"/>
         <Param name="stopVal" val="4" valType="code" updates="constant"/>
         <Param name="durationEstim" val="" valType="code" updates="None"/>
         <Param name="pos" val="[0, 0]" valType="code" updates="constant"/>
         <Param name="flip" val="" valType="str" updates="constant"/>
         <Param name="startEstim" val="" valType="code" updates="None"/>
         <Param name="units" val="from exp settings" valType="str" updates="None"/>
+        <Param name="text" val="$instruction" valType="str" updates="set every repeat"/>
         <Param name="startType" val="time (s)" valType="str" updates="None"/>
         <Param name="ori" val="0" valType="code" updates="constant"/>
         <Param name="stopType" val="duration (s)" valType="str" updates="None"/>
@@ -216,7 +216,7 @@
       <Param name="endPoints" val="[0, 1]" valType="num" updates="None"/>
       <Param name="conditions" val="[{'bodyPart': u'left_hand', 'instruction': u' Left hand.'}, {'bodyPart': u'right_hand', 'instruction': u' Right hand.'}, {'bodyPart': u'left_foot', 'instruction': u' Left foot.'}, {'bodyPart': u'right_foot', 'instruction': u' Right foot.'}]" valType="str" updates="None"/>
     </LoopInitiator>
-    <Routine name="trial"/>
+    <Routine name="stimulus"/>
     <LoopTerminator name="stimuli"/>
     <Routine name="pause"/>
     <LoopTerminator name="trials"/>
@@ -230,7 +230,7 @@
       <Param name="endPoints" val="[0, 1]" valType="num" updates="None"/>
       <Param name="conditions" val="[{'bodyPart': u'left_hand', 'instruction': u' Left Hand'}, {'bodyPart': u'right_hand', 'instruction': u' Right Hand'}, {'bodyPart': u'left_foot', 'instruction': u' Left Foot'}, {'bodyPart': u'right_foot', 'instruction': u' Right Foot'}]" valType="str" updates="None"/>
     </LoopInitiator>
-    <Routine name="trial"/>
+    <Routine name="stimulus"/>
     <Routine name="feedback"/>
     <LoopTerminator name="trials_2"/>
   </Flow>
