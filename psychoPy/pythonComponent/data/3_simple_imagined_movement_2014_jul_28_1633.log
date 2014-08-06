@@ -1,0 +1,108 @@
+2.9746 	EXP 	Set Window color=[ 0.  0.  0.] (rgb)
+3.8611 	EXP 	Created text_3 = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font=UNKNOWN, fontFiles=UNKNOWN, height=488, italic=False, name='text_3', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text=unicode(...), units=u'norm', win=Window(...), wrapWidth=UNKNOWN)
+3.8653 	EXP 	Created text = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font=UNKNOWN, fontFiles=UNKNOWN, height=61, italic=False, name='text', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text=u'default text', units=u'norm', win=Window(...), wrapWidth=UNKNOWN)
+3.8682 	EXP 	Created imagination_instruction_2 = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font=UNKNOWN, fontFiles=UNKNOWN, height=61, italic=False, name='imagination_instruction_2', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text=u'default text', units=u'norm', win=Window(...), wrapWidth=UNKNOWN)
+3.8738 	EXP 	Created text_2 = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font=UNKNOWN, fontFiles=UNKNOWN, height=61, italic=False, name='text_2', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text=u'Pause', units=u'norm', win=Window(...), wrapWidth=UNKNOWN)
+3.8934 	EXP 	Created text_4 = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font=UNKNOWN, fontFiles=UNKNOWN, height=610, italic=False, name='text_4', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text=unicode(...), units=u'norm', win=Window(...), wrapWidth=UNKNOWN)
+3.8963 	EXP 	Created imagination_instruction = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font=UNKNOWN, fontFiles=UNKNOWN, height=61, italic=False, name='imagination_instruction', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text=u'default text', units=u'norm', win=Window(...), wrapWidth=UNKNOWN)
+3.8993 	EXP 	Created text_5 = TextStim(alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font=UNKNOWN, fontFiles=UNKNOWN, height=61, italic=False, name='text_5', opacity=1.0, ori=0, pos=array([ 0.,  0.]), rgb=array([ 255.,  255.,  255.]), text=u'default text', units=u'norm', win=Window(...), wrapWidth=UNKNOWN)
+3.9143 	EXP 	TextStim: autoDraw = True
+5.5745 	DATA 	Keypress: space
+5.5748 	EXP 	Imported trails.csv as conditions, 2 conditions, 2 params
+5.5750 	EXP 	Created sequence: sequential, trialTypes=2, nReps=1, seed=None
+5.5754 	EXP 	New trial (rep=0, index=0): {'trailText': u' Trail 1', 'trail': 1}
+5.5943 	EXP 	TextStim: autoDraw = False
+5.5943 	EXP 	Set text text= Trail 1
+5.5943 	EXP 	TextStim: autoDraw = True
+7.5746 	EXP 	Imported stimulus_conditions.csv as conditions, 4 conditions, 2 params
+7.5748 	EXP 	Created sequence: random, trialTypes=4, nReps=1, seed=None
+7.5751 	EXP 	New trial (rep=0, index=0): {'bodyPart': u'left_foot', 'instruction': u' Left Foot'}
+7.5943 	EXP 	TextStim: autoDraw = False
+7.5943 	EXP 	TextStim: autoDraw = False
+7.5943 	EXP 	Set imagination_instruction_2 text= Left Foot
+7.5943 	EXP 	TextStim: autoDraw = True
+11.5745 	EXP 	New trial (rep=0, index=1): {'bodyPart': u'right_foot', 'instruction': u' Right Foot'}
+11.5931 	EXP 	TextStim: autoDraw = False
+11.5931 	EXP 	TextStim: autoDraw = False
+11.5931 	EXP 	Set imagination_instruction_2 text= Right Foot
+11.5931 	EXP 	TextStim: autoDraw = True
+15.5745 	EXP 	New trial (rep=0, index=2): {'bodyPart': u'left_hand', 'instruction': u' Left Hand'}
+15.5931 	EXP 	TextStim: autoDraw = False
+15.5931 	EXP 	TextStim: autoDraw = False
+15.5931 	EXP 	Set imagination_instruction_2 text= Left Hand
+15.5931 	EXP 	TextStim: autoDraw = True
+19.5745 	EXP 	New trial (rep=0, index=3): {'bodyPart': u'right_hand', 'instruction': u' Right Hand'}
+19.5931 	EXP 	TextStim: autoDraw = False
+19.5931 	EXP 	TextStim: autoDraw = False
+19.5931 	EXP 	Set imagination_instruction_2 text= Right Hand
+19.5931 	EXP 	TextStim: autoDraw = True
+23.5931 	EXP 	TextStim: autoDraw = False
+23.5931 	EXP 	TextStim: autoDraw = False
+23.5931 	EXP 	TextStim: autoDraw = True
+28.5734 	EXP 	New trial (rep=0, index=1): {'trailText': u' Trail 2', 'trail': 2}
+28.5944 	EXP 	TextStim: autoDraw = False
+28.5944 	EXP 	TextStim: autoDraw = False
+28.5944 	EXP 	Set text text= Trail 2
+28.5944 	EXP 	TextStim: autoDraw = True
+30.5736 	EXP 	Imported stimulus_conditions.csv as conditions, 4 conditions, 2 params
+30.5738 	EXP 	Created sequence: random, trialTypes=4, nReps=1, seed=None
+30.5741 	EXP 	New trial (rep=0, index=0): {'bodyPart': u'right_hand', 'instruction': u' Right Hand'}
+30.5943 	EXP 	TextStim: autoDraw = False
+30.5943 	EXP 	TextStim: autoDraw = False
+30.5943 	EXP 	Set imagination_instruction_2 text= Right Hand
+30.5943 	EXP 	TextStim: autoDraw = True
+34.5746 	EXP 	New trial (rep=0, index=1): {'bodyPart': u'left_foot', 'instruction': u' Left Foot'}
+34.5943 	EXP 	TextStim: autoDraw = False
+34.5943 	EXP 	TextStim: autoDraw = False
+34.5943 	EXP 	Set imagination_instruction_2 text= Left Foot
+34.5943 	EXP 	TextStim: autoDraw = True
+38.5785 	EXP 	New trial (rep=0, index=2): {'bodyPart': u'left_hand', 'instruction': u' Left Hand'}
+38.5935 	EXP 	TextStim: autoDraw = False
+38.5935 	EXP 	Set imagination_instruction_2 text= Left Hand
+38.5935 	EXP 	TextStim: autoDraw = True
+42.5785 	EXP 	New trial (rep=0, index=3): {'bodyPart': u'right_foot', 'instruction': u' Right Foot'}
+42.5971 	EXP 	TextStim: autoDraw = False
+42.5971 	EXP 	Set imagination_instruction_2 text= Right Foot
+42.5971 	EXP 	TextStim: autoDraw = True
+46.5983 	EXP 	TextStim: autoDraw = False
+46.5983 	EXP 	TextStim: autoDraw = True
+51.5971 	EXP 	TextStim: autoDraw = False
+51.5971 	EXP 	TextStim: autoDraw = True
+53.0584 	DATA 	Keypress: space
+53.0587 	EXP 	Imported stimulus_conditions.csv as conditions, 4 conditions, 2 params
+53.0589 	EXP 	Created sequence: random, trialTypes=4, nReps=1, seed=None
+53.0592 	EXP 	New trial (rep=0, index=0): {'bodyPart': u'right_foot', 'instruction': u' Right Foot'}
+53.0783 	EXP 	TextStim: autoDraw = False
+53.0783 	EXP 	Set imagination_instruction text= Right Foot
+53.0783 	EXP 	TextStim: autoDraw = True
+57.0783 	EXP 	TextStim: autoDraw = False
+57.0783 	EXP 	TextStim: autoDraw = False
+57.0783 	EXP 	Set text_5 text=Feedback 0
+57.0783 	EXP 	TextStim: autoDraw = True
+59.0585 	EXP 	New trial (rep=0, index=1): {'bodyPart': u'left_foot', 'instruction': u' Left Foot'}
+59.0783 	EXP 	TextStim: autoDraw = False
+59.0783 	EXP 	TextStim: autoDraw = False
+59.0783 	EXP 	Set imagination_instruction text= Left Foot
+59.0783 	EXP 	TextStim: autoDraw = True
+63.0771 	EXP 	TextStim: autoDraw = False
+63.0771 	EXP 	TextStim: autoDraw = False
+63.0771 	EXP 	Set text_5 text=Feedback 1
+63.0771 	EXP 	TextStim: autoDraw = True
+65.0585 	EXP 	New trial (rep=0, index=2): {'bodyPart': u'right_hand', 'instruction': u' Right Hand'}
+65.0783 	EXP 	TextStim: autoDraw = False
+65.0783 	EXP 	TextStim: autoDraw = False
+65.0783 	EXP 	Set imagination_instruction text= Right Hand
+65.0783 	EXP 	TextStim: autoDraw = True
+69.0783 	EXP 	TextStim: autoDraw = False
+69.0783 	EXP 	TextStim: autoDraw = False
+69.0783 	EXP 	Set text_5 text=Feedback 2
+69.0783 	EXP 	TextStim: autoDraw = True
+71.0585 	EXP 	New trial (rep=0, index=3): {'bodyPart': u'left_hand', 'instruction': u' Left Hand'}
+71.0783 	EXP 	TextStim: autoDraw = False
+71.0783 	EXP 	TextStim: autoDraw = False
+71.0783 	EXP 	Set imagination_instruction text= Left Hand
+71.0783 	EXP 	TextStim: autoDraw = True
+75.0771 	EXP 	TextStim: autoDraw = False
+75.0771 	EXP 	TextStim: autoDraw = False
+75.0771 	EXP 	Set text_5 text=Feedback 3
+75.0771 	EXP 	TextStim: autoDraw = True
