@@ -193,6 +193,24 @@ class Event:
             self.duration = 0
         else:
             self.deserialize(S)
+            
+    def copy(self):
+        new = Event();
+        
+        new.type = self.type
+        
+        if hasattr(self.value,"deepcopy"):
+            new.value = self.value.deepcopy()
+        elif hasattr(self.value,"copy"):
+            new.value = self.value.copy()
+        else:
+            new.value = self.value
+            
+        new.sample = self.sample
+        new.offset = self.offset
+        new.duration = self.duration
+        
+        return new
     
     def __str__(self):
         return 'Type.....: %s\nValue....: %s\nSample...: %i\nOffset...: %i\nDuration.: %i\n'%(str(self.type),str(self.value), self.sample, self.offset, self.duration)
@@ -487,7 +505,7 @@ class Client:
            quantities in the FieldTrip buffer.
         """
 
-        validatearray()
+        validatearray(D)
         
         (nSamp, nChan) = arraysize(D)
         
