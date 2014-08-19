@@ -16,11 +16,13 @@ def signalproxy(fSample = 100, nChans = 10, blocksize = 2):
     n = 0;    
     
     while True:
-        sendTime = time()
+        sendtime = time()
         ftc.putData(sample)
         n = n + 1
         if n % 100 == 0:
-           print str(n) + "data packages sent."
+           print str(n) + " data packages sent."
         sample = numpy.random.rand(blocksize, nChans)
-        sleep(delta - (time() - sendTime))
+        wait = delta - (time() - sendtime)
+        if wait > 0:
+            sleep(wait)
         

@@ -2,7 +2,7 @@ import scipy.signal
 import numpy
 from math import ceil
 
-def detrend(data, type="linear"):
+def detrend(data, dim=1, type="linear"):
     '''Removes trends from the data.
     
     Applies the scipy.signal.detrend function to the data, this numpy function
@@ -15,6 +15,7 @@ def detrend(data, type="linear"):
     Parameters
     ----------
     data : list of datapoints (numpy arrays) or a single numpy array.
+    dim : the axis along which detrending needs to be applied
     type : a string that indicates the type of detrending should either 
     be "linear" or "constant"
     
@@ -24,7 +25,7 @@ def detrend(data, type="linear"):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> data = preproc.detrend(data,type="constant")
     >>> data = bufhelp.gatherdata("start",10,"stop")
     >>> data = preproc.detrend(data)
@@ -38,10 +39,12 @@ def detrend(data, type="linear"):
             
     if not isinstance(data,numpy.ndarray):
         X = concatdata(data)
+    elif isinstance(data,numpy.ndarray):
+        X = data
     else:
-        X = data   
+        raise Exception("data should be a numpy array or list of numpy arrays.")
     
-    X = scipy.signal.detrend(X, axis=1, type=type)
+    X = scipy.signal.detrend(X, axis=dim, type=type)
     
     if not isinstance(data,numpy.ndarray):
         return rebuilddata(X,data)
@@ -112,7 +115,7 @@ def spatialfilter(data, type="car",whitencutoff=1e-15):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> data = preproc.spatialfilter(data, type="whitten")
     >>> data = bufhelp.gatherdata("start",10,"stop")
     >>> data = preproc.spatialfilter(data)
@@ -123,9 +126,11 @@ def spatialfilter(data, type="car",whitencutoff=1e-15):
 
     if not isinstance(data,numpy.ndarray):
         X = concatdata(data)
-    else:
+    elif isinstance(data,numpy.ndarray):
         X = data
-
+    else:
+        raise Exception("data should be a numpy array or list of numpy arrays.")
+        
     if type=="car":
         
         X = numpy.dot(numpy.eye(X.shape[0])-(1.0/X.shape[0]),X)
@@ -162,7 +167,7 @@ def fouriertransform(data, fSample, dim=0):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> hdr = ftc.getHeader()
     >>> data = preproc.fouriertransform(data, hdr.fSample)
     >>> data = bufhelp.gatherdata("start",10,"stop")
@@ -202,7 +207,7 @@ def fouriertransform(data, fSample, dim=0):
             dataclone[k] = ps
             
         return dataclone
-    else:
+    elif isinstance(data,numpy.ndarray):
         ft = numpy.abs(numpy.fft.fft(data, axis=dim))**2
         freqs = numpy.fft.fftfreq(data.shape[0], 1.0/fSample)
         idx = [i for i in numpy.argsort(freqs) if freqs[i] >= 0]
@@ -221,7 +226,9 @@ def fouriertransform(data, fSample, dim=0):
             sel = [i,i]
             sel[dim] = idx
             ps[ind] = ft[sel]
-            
+    else:
+        raise Exception("data should be a numpy array or list of numpy arrays.")
+        
         return ps   
         
 def spectrum(data, fSample, dim=0):
@@ -241,7 +248,7 @@ def spectrum(data, fSample, dim=0):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> hdr = ftc.getHeader()
     >>> freqs = preproc.spectrum(data, hdr.fSample)
     >>> data = bufhelp.gatherdata("start",10,"stop")
@@ -250,8 +257,10 @@ def spectrum(data, fSample, dim=0):
     
     if not isinstance(data,numpy.ndarray):
         freqs = numpy.fft.fftfreq(data[0].shape[dim]*2, 1.0/fSample)    
-    else:
+    elif isinstance(data,numpy.ndarray):
         freqs = numpy.fft.fftfreq(data.shape[dim], 1.0/fSample)    
+    else:
+        raise Exception("data should be a numpy array or list of numpy arrays.")        
         
     return [freqs[i] for i in numpy.argsort(freqs) if freqs[i] >= 0]
 
@@ -289,7 +298,7 @@ def spectralfilter(data, band, fSample, dim=0):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> data = preproc.fouriertransform(data)
     >>> hdr = ftc.getHeader()
     >>> data = preproc.spectralfilteronly(data, (10,12), hdr.fSample)
@@ -337,7 +346,7 @@ def spectralfilteronly(data, band, fSample, dim=1):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> data = preproc.fouriertransform(data)
     >>> hdr = ftc.getHeader()
     >>> data = preproc.spectralfilteronly(data, (10,12), hdr.fSample)
@@ -374,7 +383,7 @@ def spectralfilteronly(data, band, fSample, dim=1):
                 for i in range(0,X.shape[dim]):
                     index[dim] = i
                     X[index] = X[index] * _bandfunc(freqs[i], band)           
-    else:
+    elif isinstance(data,numpy.ndarray):
         freqs = spectrum(data,fSample, dim)
         s = list(data.shape)
         del s[dim]
@@ -383,7 +392,9 @@ def spectralfilteronly(data, band, fSample, dim=1):
             for i in range(0,data.shape[dim]):
                 index[dim] = i
                 data[index] = data[index] * _bandfunc(freqs[i], band)
-    
+    else:
+        raise Exception("data should be a numpy array or list of numpy arrays.")
+        
     return data    
         
 def _bandfunc(x, band):
@@ -427,7 +438,7 @@ def timebandfiler(data, timeband, milliseconds=False, fSample=None):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> hdr = ftc.getHeader()
     >>> data = preproc.timebandfiler(data, (250,350), hdr.fSample)
     >>> data = bufhelp.gatherdata("start",10,"stop")
@@ -509,15 +520,18 @@ def concatdata(data):
         
     return numpy.concatenate(data)
     
-def badchannelremoval(data, threshold = (-numpy.inf,3.1)):
+def badchannelremoval(data, badchannels = None, threshold = (-numpy.inf,3.1)):
     '''Removes bad channels from the data.
     
     Removes bad channels from the data. Basically applies outlier detection
     on the columns in the data and removes them if necessary.
     
+    If badchannels are provided these will simply be removed from the data.
+    
     Parameters
     ----------
     data : list of datapoints (numpy arrays) or a single numpy array.
+    badchannels : list of indices of bad channels
     threshold : the upper and lower bound of the thershold in a tuple expressed
     in standard deviations.  
     
@@ -528,26 +542,48 @@ def badchannelremoval(data, threshold = (-numpy.inf,3.1)):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> data, badch = preproc.badchannelremoval(data)
     >>> data = bufhelp.gatherdata("start",10,"stop")
     >>> data, badch = preproc.badchannelremoval(data)
     '''
     
+    if not isinstance(data, list):
+        raise Exception("Data is not a list.")
+        
+    if not all(map(lambda x: isinstance(x,numpy.ndarray), data)):
+        raise Exception("Data contains non numpy.array elements.")
+    
+    if not all(map(lambda x: x.shape[1] == data[0].shape[1], data)):
+        raise Exception("Inconsistent number of channels in data!")
+    
+    if badchannels is not None:
+        goodchannels = [x for x in range(data[0].shape[1]) if x not in badchannels]        
+        
+        if not isinstance(data,numpy.ndarray):
+            data = clonelist(data)
+            for i in range(0,len(data)):
+                data[i] = data[i][:,goodchannels]            
+        else:
+            return data[:,badchannels]
+    
     if not isinstance(data,numpy.ndarray):
         X = concatdata(data)
-    else:
+    elif isinstance(data,numpy.ndarray):
         X = data
+    else:
+        raise Exception("data should be a list of numpy arrays or a numpy array")
     
     inliers, outliers = outlierdetection(X, 0, threshold)    
         
     if not isinstance(data,numpy.ndarray):
         return (rebuilddata(X[:,inliers],data), outliers)
-    else:
+    elif isinstance(data,numpy.ndarray):
         return (X[:,inliers], outliers)
-        
+    else:
+        raise Exception("data should be a numpy array or list of numpy arrays.")
 
-def badtrailremoval(data, events = None, threshold = (-numpy.inf,3.1)):
+def badtrailremoval(data, events = None, threshold = (None,3.1)):
     '''Removes bad trails from the data.
     
     Removes bad trails from the data. Applies outlier detection on the rows
@@ -566,7 +602,7 @@ def badtrailremoval(data, events = None, threshold = (-numpy.inf,3.1)):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> data, badtrl = preproc.badchannelremoval(data)
     >>> data = bufhelp.gatherdata("start",10,"stop")
     >>> data, badtrl = preproc.badchannelremoval(data)
@@ -599,11 +635,12 @@ def badtrailremoval(data, events = None, threshold = (-numpy.inf,3.1)):
             return (dataout, eventsout, outliers)            
             
         return (dataout, outliers)
-    else:
+    elif isinstance(data,numpy.ndarray):
         return (X[inliers,:], outliers)
+    else:
+        raise Exception("data should be a numpy array or list of numpy arrays.")
     
-    
-def outlierdetection(X, dim=0, threshold=(-numpy.inf,3), maxIter=3, feat="var"):
+def outlierdetection(X, dim=0, threshold=(None,3), maxIter=3, feat="var"):
     '''Removes outliers from X. Based on idOutliers.m
     
     Removes outliers from X based on robust coviarance variance/mean 
@@ -625,7 +662,7 @@ def outlierdetection(X, dim=0, threshold=(-numpy.inf,3), maxIter=3, feat="var"):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> inliers, outliers = preproc.outlierdetection(data)
     '''   
   
@@ -641,21 +678,29 @@ def outlierdetection(X, dim=0, threshold=(-numpy.inf,3), maxIter=3, feat="var"):
     
     outliers = []
     inliers = numpy.array(range(0,max(feat.shape)))    
-    
+
     mufeat = numpy.zeros(maxIter)
     stdfeat = numpy.zeros(maxIter)
     for i in range(0,maxIter):
         mufeat = numpy.median(feat[inliers])
         stdfeat = numpy.std(feat[inliers])
-        low = mufeat+threshold[0]*stdfeat
-        high = mufeat+threshold[1]*stdfeat
-        bad = (feat > high) * (feat < low)
-        
+
+        if threshold[0] is None:
+            high = mufeat+threshold[1]*stdfeat
+            bad = (feat > high)
+        elif threshold[1] is None:
+            low = mufeat+threshold[0]*stdfeat
+            bad = (feat < low)
+        else:
+            high = mufeat+threshold[1]*stdfeat
+            low = mufeat+threshold[0]*stdfeat
+            bad = (feat > high) * (feat < low)
+
         if not any(bad):
             break
         else:
-            outliers = outliers + inliers[bad]
-            inliers = inliers[not bad]
+            outliers = outliers + list(inliers[bad])
+            inliers = inliers[[ not x for x in bad]]
     
     return (list(inliers), outliers)
     
@@ -677,7 +722,7 @@ def rebuilddata(X,data):
     
     Examples
     --------
-    >>> data = ftc.getData(0,100)
+    >>> data, events = ftc.getData(0,100)
     >>> X = preproc.concatdata(data)
     >>> X = X + 1
     >>> data = preproc.rebuilddata(X,data)

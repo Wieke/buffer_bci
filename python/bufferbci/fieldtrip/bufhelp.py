@@ -1,6 +1,7 @@
-from bufferbci.fieldtrip import Client, Event
+from . import Client, Event
 from time import time, sleep
 from math import ceil
+import socket
 
 def connect(header=True, verbose = True):
     """Connects to the buffer. And waits for a header (unless otherwise
@@ -9,25 +10,31 @@ def connect(header=True, verbose = True):
     global ftc, event
     ftc = Client()
     event = Event()
-    
-    while not ftc.isConnected:
-        adress = ""
-        if verbose:
-            adress = raw_input("Buffer adress (default is \"localhost:1972\"):")
-        
+
+    adress = "localhost"
+    port = 1972
+
+    if verbose:
+        adress = raw_input("Buffer adress (default is \"localhost:1972\"):")    
         if adress == "":
-            ftc.connect()
+            adress = "localhost"
         else:
             try:
                 split = adress.split(":")
-                ftc.connect(split[0],int(split(1)))            
-            except socket.error:
-                print "Failed to connect at " + adress
+                adress = split[0]
+                port = int(split(1))
             except ValueError:
                 print "Invalid port formatting " + split[1]
             except IndexError:
                 print "Invalid adress formatting " + adress
-                
+    
+    while not ftc.isConnected:
+        try:
+            ftc.connect(adress, port)
+        except socket.error:
+            print "Failed to connect at " + adress + ":" + str(port)
+            sleep(1)
+                   
     if header:
         hdr = waitforheader(verbose)
         return ftc,hdr
@@ -43,6 +50,7 @@ def waitforheader(verbose = True):
         if verbose:
             print "Waiting for header"
         sleep(1)
+        hdr = ftc.getHeader()
         
     nSamples = hdr.nSamples
     fSample = hdr.fSample
@@ -233,9 +241,13 @@ def gatherdata(trigger, time, stoptrigger, milliseconds=False, verbose = True):
         if nEvents != nEvents2:
             e = ftc.getEvents((nEvents, nEvents2 -1))
             nEvents = nEvents2            
+
+            stopevents = stopFilter(e)            
             
-            if stopFilter(e):
+            if stopevents:
                 stillgathering = False
+                if len(stopevents) == 1:
+                    stopevents = stopevents[0]
                 
             e = gatherFilter(e)
             
@@ -259,4 +271,4 @@ def gatherdata(trigger, time, stoptrigger, milliseconds=False, verbose = True):
         if not stillgathering and not gather:
             break
             
-    return (events,data)
+    return (data,events, stopevents)

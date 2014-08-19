@@ -7,6 +7,7 @@ FieldTrip buffer (V1) client in pure Python
 # We need socket, struct, and numpy 
 import socket
 import struct
+import copy
 
 VERSION = 1
 PUT_HDR = 0x101
@@ -194,23 +195,8 @@ class Event:
         else:
             self.deserialize(S)
     
-    def copy(self):
-        new = Event();
-        
-        new.type = self.type
-        
-        if hasattr(self.value,"deepcopy"):
-            new.value = self.value.deepcopy()
-        elif hasattr(self.value,"copy"):
-            new.value = self.value.copy()
-        else:
-            new.value = self.value
-            
-        new.sample = self.sample
-        new.offset = self.offset
-        new.duration = self.duration
-        
-        return new
+    def copy(self):       
+        return copy.deepcopy(self)
             
     
     def __str__(self):
